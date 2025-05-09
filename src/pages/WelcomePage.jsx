@@ -64,7 +64,7 @@ export default function WelcomePage() {
   };
   return (
     <div className="wrapper d-flex h-100 ">
-      <div className="row w-100 h-100 position-absolute z-1">
+      <div className="row w-100 h-100 position-absolute z-1 image-background">
         <div className="col-6 d-flex flex-column align-items-center justify-content-center h-100 position-relative">
           <div className="container">
             <div className="register-page">

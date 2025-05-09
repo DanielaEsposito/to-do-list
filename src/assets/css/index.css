@@ -39,7 +39,7 @@ body {
   top: 0;
   left: 0;
   z-index: 3;
-  background-color: antiquewhite;
+  background-color: var(--background-body);
   transition: transform 0.5s ease;
 }
 
@@ -51,11 +51,16 @@ body {
   transform: translateX(100%);
 }
 .welcome-form {
-  border: 1px solid black;
   padding: 15px;
   border-radius: 20px;
-  width: 500px;
+
+  width: 400px;
   margin: 20px 0px;
+}
+.image-background {
+  background-image: url("images/background-img-todolist1.png");
+  background-size: cover;
+  background-position: center;
 }
 /*SIDEBAR*/
 .sidebar {
