@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getCsrfCookie, getCookie } from "../api/api";
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
 
@@ -6,6 +7,7 @@ export default function Tasks() {
   const [priorities, setPriorities] = useState([]);
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
+
   // const [completed, setCompleted] = useState(false);
 
   // Fetch  categories and priorities from the API
@@ -52,6 +54,31 @@ export default function Tasks() {
         setTasks(data);
       });
   }, [category, priority]);
+  // Delete task
+  const deliteForm = (id) => {
+    getCsrfCookie();
+    const csrfToken = decodeURIComponent(getCookie("XSRF-TOKEN"));
+    fetch(`http://localhost:8000/api/tasks/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "X-XSRF-TOKEN": csrfToken,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Errore nella cancellazione");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      })
+      .catch((error) => {
+        console.error("Errore:", error);
+      });
+  };
   return (
     <div className="container">
       <h2 className="fw-semibold text-center">Le tue attività</h2>
@@ -128,9 +155,57 @@ export default function Tasks() {
                 <button className="btn ">
                   <i className="fa-solid fa-pencil"></i>
                 </button>
-                <button className="btn">
+                <button
+                  type="button"
+                  className="btn"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#modal-${task.id}`}
+                >
                   <i className="fa-solid fa-trash"></i>
                 </button>
+              </div>
+            </div>
+            <div
+              className="modal fade"
+              id={`modal-${task.id}`}
+              tabIndex="-1"
+              aria-labelledby={`modal-label-${task.id}`}
+              aria-hidden="true"
+            >
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h1
+                      className="modal-title fs-5"
+                      id={`modal-label-${task.id}`}
+                    >
+                      Sicuro di voler eliminare questa attività?
+                    </h1>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Annulla
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => deliteForm(task.id)}
+                      data-bs-dismiss="modal"
+                    >
+                      Elimina
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
