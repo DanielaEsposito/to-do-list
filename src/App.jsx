@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import FormTasksPage from "./pages/FormTasksPage";
 import Tasks from "./pages/Tasks";
 import Note from "./pages/Note";
+import FormModifyTask from "./pages/FormModifyTask";
 // import NotFound from "./pages/NotFound";
 
 import WelcomePage from "./pages/WelcomePage";
@@ -22,6 +23,7 @@ function App() {
           <Route Component={DefaultLayout}>
             <Route path="/home" Component={HomePage} />
             <Route path="/newtasks" Component={FormTasksPage} />
+            <Route path="/modifytask/:id" Component={FormModifyTask} />
             <Route path="/tasks" Component={Tasks} />
             <Route path="/note" Component={Note} />
             {/* <Route path="*" Component={NotFound} /> */}

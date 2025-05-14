@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getCsrfCookie, getCookie } from "../api/api";
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -129,6 +130,7 @@ export default function Tasks() {
         <div className="col-3"></div>
       </div>
       <div className="row">
+        {/* TASKS */}
         {tasks.map((task) => (
           <div key={task.id} className="col-3">
             <div className={`card task-card ${task.category.color}`}>
@@ -153,7 +155,10 @@ export default function Tasks() {
               </div>
               <div className="card-footer d-flex justify-content-between">
                 <button className="btn ">
-                  <i className="fa-solid fa-pencil"></i>
+                  <Link
+                    to={`/modifytask/${task.id}`}
+                    className="fa-solid fa-pencil"
+                  ></Link>
                 </button>
                 <button
                   type="button"
@@ -172,7 +177,7 @@ export default function Tasks() {
               aria-labelledby={`modal-label-${task.id}`}
               aria-hidden="true"
             >
-              <div className="modal-dialog">
+              <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                   <div className="modal-header">
                     <h1
