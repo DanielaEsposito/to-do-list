@@ -6,6 +6,8 @@ export default function FormTasksPage() {
     description: "",
     category_id: "",
     priority_id: "",
+    completed: false,
+    date: "",
   });
   const [categories, setCategories] = useState([]);
   const [priorities, setPriorities] = useState([]);
@@ -64,6 +66,8 @@ export default function FormTasksPage() {
       description: "",
       category_id: "",
       priority_id: "",
+      completed: false,
+      date: "",
     });
   };
   console.log(task);
@@ -76,6 +80,20 @@ export default function FormTasksPage() {
         onSubmit={handleFormSubmit}
       >
         <h1 className="text-center">Aggiungi una nuova attività</h1>
+        <div className="mb-3">
+          <label htmlFor="date" className="form-label">
+            Data
+          </label>
+          <input
+            onChange={handleChange}
+            value={task.date}
+            name="date"
+            type="date"
+            className="form-control"
+            id="date"
+            placeholder="Inserisci la data della tua attività"
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Titolo

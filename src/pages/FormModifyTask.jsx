@@ -26,6 +26,7 @@ export default function FormModifyTask() {
           category_id: data.data.category_id,
           priority_id: data.data.priority_id,
           completed: data.data.completed,
+          date: data.data.date,
         });
       });
     fetch("http://localhost:8000/api/tasks-categories", {
@@ -95,6 +96,20 @@ export default function FormModifyTask() {
         // onSubmit={handleFormSubmit}
       >
         <h1 className="text-center">Modifica questa ttività</h1>
+        <div className="mb-3">
+          <label htmlFor="date" className="form-label">
+            Data
+          </label>
+          <input
+            onChange={handleChange}
+            value={modifyTask.date}
+            name="date"
+            type="date"
+            className="form-control"
+            id="date"
+            placeholder="Inserisci la data della tua attività"
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Titolo

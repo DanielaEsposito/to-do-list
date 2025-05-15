@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { getCsrfCookie, getCookie } from "../api/api";
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
-
+  //set filter
   const [categories, setCategories] = useState([]);
   const [priorities, setPriorities] = useState([]);
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
-
-  // const [completed, setCompleted] = useState(false);
+  const [date, setDate] = useState("");
+  const [completed, setCompleted] = useState(false);
 
   // Fetch  categories and priorities from the API
   useEffect(() => {
@@ -38,11 +38,14 @@ export default function Tasks() {
         setPriorities(data.data);
       });
   }, []);
+
   // Fetch tasks from the API and filter by category and priority
   useEffect(() => {
     const queryParams = new URLSearchParams();
     if (category) queryParams.append("category", category);
     if (priority) queryParams.append("priority", priority);
+    if (completed) queryParams.append("completed", completed);
+    if (date) queryParams.append("date", date);
     fetch(`http://localhost:8000/api/tasks?${queryParams.toString()}`, {
       credentials: "include",
       headers: {
@@ -54,7 +57,8 @@ export default function Tasks() {
       .then((data) => {
         setTasks(data);
       });
-  }, [category, priority]);
+  }, [category, priority, completed]);
+
   // Delete task
   const deliteForm = (id) => {
     getCsrfCookie();
@@ -124,9 +128,32 @@ export default function Tasks() {
           </select>
         </div>
         <div className="col-3">
-          <label htmlFor="completed">Completata</label>
+          <label className="form-label" htmlFor="completed">
+            Completata
+          </label>
+          <select
+            className="form-select"
+            id="completed"
+            name="completed"
+            onChange={(e) => setCompleted(e.target.value)}
+          >
+            <option value="">Tutte le attività</option>
+            <option value="1">Completate</option>
+            <option value="0">Non completate</option>
+          </select>
         </div>
-        <div className="col-3"></div>
+        <div className="col-3">
+          <label className="form-label" htmlFor="date">
+            Data
+          </label>
+          <input
+            type="date"
+            className="form-control"
+            id="date"
+            name="date"
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
         <div className="col-3"></div>
       </div>
       <div className="row">
@@ -138,6 +165,7 @@ export default function Tasks() {
                 <p className="card-text">
                   <small className="text-muted">{task.category.title}</small>
                 </p>
+                <p className="card-text fw-semibold">{task.date}</p>
                 <h5 className="card-title fw-semibold">{task.title}</h5>
                 <p className="card-text">{task.description}</p>
                 <p className="card-text">
