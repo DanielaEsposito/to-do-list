@@ -10,6 +10,7 @@ import Tasks from "./pages/Tasks";
 import Note from "./pages/Note";
 import FormModifyTask from "./pages/FormModifyTask";
 import FormNotesPage from "./pages/FormNotesPage";
+import CalendarPage from "./pages/CalendarPage";
 // import NotFound from "./pages/NotFound";
 
 import WelcomePage from "./pages/WelcomePage";
@@ -28,6 +29,7 @@ function App() {
             <Route path="/newnote" Component={FormNotesPage} />
             <Route path="/tasks" Component={Tasks} />
             <Route path="/note" Component={Note} />
+            <Route path="/calendar" Component={CalendarPage} />
             {/* <Route path="*" Component={NotFound} /> */}
           </Route>
         </Routes>

@@ -27,7 +27,7 @@ export default function Sidebar() {
         </li>
         <li className="sidebar-li">
           <div className="sidebar-item">
-            <Link>
+            <Link to={"/calendar"}>
               <i className="fa-solid fa-calendar"></i> Calendario
             </Link>
           </div>
