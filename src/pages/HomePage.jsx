@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+
 export default function HomePage() {
   const { user } = useAuth();
   const [tasks, setTasks] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:8000/api/tasks", {
       credentials: "include",
@@ -29,6 +31,7 @@ export default function HomePage() {
   const filteredGeneralTasks = tasks.filter(
     (task) => task.category.title === "Altro"
   );
+
   return (
     <div className="wrapper">
       <div className="container">
@@ -114,29 +117,6 @@ export default function HomePage() {
                 <h4>0</h4>
               )}
             </div>
-          </div>
-
-          <div className="col-12">
-            <div className="home-card notes-card">
-              <h2 className="fw-semibold">Note</h2>
-              <p>Prendi appunti e annotazioni importanti.</p>
-            </div>
-            <form action="" method="post">
-              <div className="mb-3">
-                <label htmlFor="note" className="form-label">
-                  Aggiungi una nota
-                </label>
-                <textarea
-                  className="form-control"
-                  id="note"
-                  rows="3"
-                  placeholder="Scrivi qui la tua nota..."
-                ></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Aggiungi Nota
-              </button>
-            </form>
           </div>
         </div>
       </div>

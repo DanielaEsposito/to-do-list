@@ -28,14 +28,14 @@ export default function Sidebar() {
         <li className="sidebar-li">
           <div className="sidebar-item">
             <Link>
-              <i className="fa-solid fa-calendar-week"></i> Settimana
+              <i className="fa-solid fa-calendar"></i> Calendario
             </Link>
           </div>
         </li>
         <li className="sidebar-li">
           <div className="sidebar-item">
-            <Link>
-              <i className="fa-solid fa-calendar"></i> Calendario
+            <Link to={"/newnote"}>
+              <i className="fa-solid fa-plus"></i> Aggiungi una nota
             </Link>
           </div>
         </li>

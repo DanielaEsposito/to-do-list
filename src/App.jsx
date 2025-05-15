@@ -9,6 +9,7 @@ import FormTasksPage from "./pages/FormTasksPage";
 import Tasks from "./pages/Tasks";
 import Note from "./pages/Note";
 import FormModifyTask from "./pages/FormModifyTask";
+import FormNotesPage from "./pages/FormNotesPage";
 // import NotFound from "./pages/NotFound";
 
 import WelcomePage from "./pages/WelcomePage";
@@ -24,6 +25,7 @@ function App() {
             <Route path="/home" Component={HomePage} />
             <Route path="/newtasks" Component={FormTasksPage} />
             <Route path="/modifytask/:id" Component={FormModifyTask} />
+            <Route path="/newnote" Component={FormNotesPage} />
             <Route path="/tasks" Component={Tasks} />
             <Route path="/note" Component={Note} />
             {/* <Route path="*" Component={NotFound} /> */}
