@@ -3,9 +3,20 @@ import { Link } from "react-router-dom";
 import WeeklyTaskSummary from "../components/WeeklyTaskSummary";
 export default function HomePage() {
   const { user, notes, tasks } = useAuth(); // Usa direttamente le tasks dal context
-
+  const filteredWorkTasks = tasks?.filter(
+    (task) => task.category.title === "Lavoro"
+  );
+  const filteredHealthTasks = tasks?.filter(
+    (task) => task.category.title === "Salute e Benessere"
+  );
+  const filteredPersonalTasks = tasks?.filter(
+    (task) => task.category.title === "Svago"
+  );
+  const filteredGeneralTasks = tasks?.filter(
+    (task) => task.category.title === "Altro"
+  );
   return (
-    <div className="wrapper">
+    <div className="wrapper mb-5">
       <div className="container">
         <div className="row g-3 mb-4">
           <div className="col-6">
@@ -18,14 +29,53 @@ export default function HomePage() {
           </div>
 
           <div className="col-6">
-            <div className="home-card calendar-card">
+            <div className="home-calendar calendar-card">
               <h2 className="fw-semibold text-center">Calendario</h2>
               <WeeklyTaskSummary tasks={tasks} />
             </div>
           </div>
         </div>
+
+        <div className="row my-4">
+          <div className="col-3 text-center p-3">
+            <div className="category-container orange">
+              <h4>
+                <i class="fa-solid fa-briefcase"></i>
+              </h4>
+
+              <h4>{filteredWorkTasks?.length || 0}</h4>
+            </div>
+          </div>
+          <div className="col-3 text-center p-3">
+            <div className="category-container yellow">
+              <h4>
+                <i class="fa-solid fa-masks-theater"></i>
+              </h4>
+
+              <h4>{filteredPersonalTasks?.length || 0}</h4>
+            </div>
+          </div>
+          <div className="col-3 text-center p-3">
+            <div className="category-container mint">
+              <h4>
+                <i class="fa-solid fa-suitcase-medical"></i>
+              </h4>
+
+              <h4>{filteredHealthTasks?.length || 0}</h4>
+            </div>
+          </div>
+          <div className="col-3 text-center p-3">
+            <div className="category-container light-blu">
+              <h4>
+                <i class="fa-solid fa-puzzle-piece"></i>
+              </h4>
+
+              <h4>{filteredGeneralTasks?.length || 0}</h4>
+            </div>
+          </div>
+        </div>
         <h3 className="text-center fw-semibold">Le tue attività del giorno </h3>
-        <div className="row">
+        <div className="row mt-4">
           {/* TASKS */}
           {tasks.map((task) => (
             <div key={task.id} className="col-3">
@@ -61,7 +111,7 @@ export default function HomePage() {
           )}
         </div>
         <h3 className="text-center fw-semibold ">Note del giorno </h3>
-        <div className="row">
+        <div className="row mt-4">
           {notes?.map((note) => (
             <div className="col-3" key={note.id}>
               <div className=" notes-card card yellow">

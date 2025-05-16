@@ -140,7 +140,7 @@ export default function Tasks() {
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
-        <div className="col-3 text-center p-3">
+        {/* <div className="col-3 text-center p-3">
           <div className="category-container orange">
             <h4>
               <i class="fa-solid fa-briefcase"></i>
@@ -175,7 +175,7 @@ export default function Tasks() {
             <p className="fw-semibold">Altro</p>
             <h4>{filteredGeneralTasks?.length || 0}</h4>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="row">
         {/* TASKS */}

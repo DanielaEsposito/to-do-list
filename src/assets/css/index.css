@@ -88,12 +88,18 @@ main {
   margin-left: var(--sidebar-width);
   width: calc(100vw - var(--sidebar-width));
 }
+
 /*HOME*/
 .home-welcome {
   padding: 20px;
 
   border-radius: 20px;
   background-color: var(--soft-lavanda);
+}
+.home-calendar {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: var(--light-blu);
 }
 .task-container {
   width: 400px;
