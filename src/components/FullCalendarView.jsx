@@ -5,7 +5,7 @@ import "react-calendar/dist/Calendar.css";
 export default function FullCalendarView({ tasks }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const formatDate = (date) => date.toISOString().split("T")[0];
+  const formatDate = (date) => date.toLocaleDateString("sv-SE");
 
   // Trova le task per la data selezionata
   const selectedTasks = tasks.filter(
@@ -24,7 +24,7 @@ export default function FullCalendarView({ tasks }) {
             (task) => task.date === formatDate(date)
           );
           return dayTasks.length > 0 ? (
-            <div style={{ textAlign: "center", color: "red" }}>•</div>
+            <div style={{ textAlign: "center", color: "light-blu" }}>•</div>
           ) : null;
         }}
       />
@@ -34,9 +34,14 @@ export default function FullCalendarView({ tasks }) {
         {selectedTasks.length > 0 ? (
           <ul className="list-group">
             {selectedTasks.map((task) => (
-              <li key={task.id} className="list-group-item">
-                <strong>{task.title}</strong> – {task.category.title} –{" "}
-                {task.priority.title}
+              <li
+                key={task.id}
+                className={`list-group-item d-inline-block ${task.category.color}`}
+              >
+                <div>
+                  <i className="fa-solid fa-calendar-day"></i> {task.title}–{" "}
+                  {task.category.title} – {task.priority.name}
+                </div>
               </li>
             ))}
           </ul>

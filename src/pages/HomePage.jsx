@@ -1,34 +1,18 @@
-import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 export default function HomePage() {
-  const { user } = useAuth();
-  const [tasks, setTasks] = useState([]);
+  const { user, tasks } = useAuth(); // Usa direttamente le tasks dal context
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/tasks", {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setTasks(data);
-      });
-  }, []);
-  console.log(tasks);
-  const filteredWorkTasks = tasks.filter(
+  const filteredWorkTasks = tasks?.filter(
     (task) => task.category.title === "Lavoro"
   );
-  const filteredHealthTasks = tasks.filter(
+  const filteredHealthTasks = tasks?.filter(
     (task) => task.category.title === "Salute e Benessere"
   );
-  const filteredPersonalTasks = tasks.filter(
+  const filteredPersonalTasks = tasks?.filter(
     (task) => task.category.title === "Svago"
   );
-  const filteredGeneralTasks = tasks.filter(
+  const filteredGeneralTasks = tasks?.filter(
     (task) => task.category.title === "Altro"
   );
 
@@ -78,44 +62,28 @@ export default function HomePage() {
               <p>Visualizza le tue attività nel calendario.</p>
             </div>
           </div>
-          <div className="col-3 text-center  p-3">
+          <div className="col-3 text-center p-3">
             <div className="category-container orange">
               <h4 className="fw-semibold">Lavoro</h4>
-              {filteredWorkTasks.length > 0 ? (
-                <h4>{filteredWorkTasks.length}</h4>
-              ) : (
-                <h4>0</h4>
-              )}
+              <h4>{filteredWorkTasks?.length || 0}</h4>
             </div>
           </div>
           <div className="col-3 text-center p-3">
             <div className="category-container yellow">
               <h4 className="fw-semibold">Svago</h4>
-              {filteredPersonalTasks.length > 0 ? (
-                <h4>{filteredPersonalTasks.length}</h4>
-              ) : (
-                <h4>0</h4>
-              )}
+              <h4>{filteredPersonalTasks?.length || 0}</h4>
             </div>
           </div>
           <div className="col-3 text-center p-3">
             <div className="category-container mint">
               <h4 className="fw-semibold">Salute e Benessere</h4>
-              {filteredHealthTasks.length > 0 ? (
-                <h4>{filteredHealthTasks.length}</h4>
-              ) : (
-                <h4>0</h4>
-              )}
+              <h4>{filteredHealthTasks?.length || 0}</h4>
             </div>
           </div>
           <div className="col-3 text-center p-3">
             <div className="category-container light-blu">
               <h4 className="fw-semibold">Altro</h4>
-              {filteredGeneralTasks.length > 0 ? (
-                <h4>{filteredGeneralTasks.length}</h4>
-              ) : (
-                <h4>0</h4>
-              )}
+              <h4>{filteredGeneralTasks?.length || 0}</h4>
             </div>
           </div>
         </div>

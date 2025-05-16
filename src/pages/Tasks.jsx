@@ -1,43 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCsrfCookie, getCookie } from "../api/api";
+import { useAuth } from "../context/AuthContext";
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
   //set filter
-  const [categories, setCategories] = useState([]);
-  const [priorities, setPriorities] = useState([]);
+  const { categories, priorities } = useAuth();
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
   const [date, setDate] = useState("");
   const [completed, setCompleted] = useState(false);
-
-  // Fetch  categories and priorities from the API
-  useEffect(() => {
-    fetch("http://localhost:8000/api/tasks-categories", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data.data);
-      });
-    fetch("http://localhost:8000/api/tasks-priorities", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPriorities(data.data);
-      });
-  }, []);
 
   // Fetch tasks from the API and filter by category and priority
   useEffect(() => {
@@ -57,7 +29,8 @@ export default function Tasks() {
       .then((data) => {
         setTasks(data);
       });
-  }, [category, priority, completed]);
+  }, [category, priority, completed, date]);
+  console.log(tasks);
 
   // Delete task
   const deliteForm = (id) => {
@@ -102,7 +75,7 @@ export default function Tasks() {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Tutte le categorie</option>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.title}
               </option>
@@ -120,7 +93,7 @@ export default function Tasks() {
             onChange={(e) => setPriority(e.target.value)}
           >
             <option value="">Tutte le priorità</option>
-            {priorities.map((priority) => (
+            {priorities?.map((priority) => (
               <option key={priority.id} value={priority.id}>
                 {priority.name}
               </option>
