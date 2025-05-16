@@ -2,17 +2,21 @@ import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import WeeklyTaskSummary from "../components/WeeklyTaskSummary";
 export default function HomePage() {
-  const { user, notes, tasks } = useAuth(); // Usa direttamente le tasks dal context
-  const filteredWorkTasks = tasks?.filter(
+  const { user, notes, tasks } = useAuth();
+  const today = new Date().toISOString().split("T")[0]; // "2025-05-16"
+  const tasksOfTheDay = tasks.filter((task) => task.date === today);
+  const notesOfTheDay = notes.filter((note) => note.date === today);
+  // Usa direttamente le tasks dal context
+  const filteredWorkTasks = tasksOfTheDay?.filter(
     (task) => task.category.title === "Lavoro"
   );
-  const filteredHealthTasks = tasks?.filter(
+  const filteredHealthTasks = tasksOfTheDay?.filter(
     (task) => task.category.title === "Salute e Benessere"
   );
-  const filteredPersonalTasks = tasks?.filter(
+  const filteredPersonalTasks = tasksOfTheDay?.filter(
     (task) => task.category.title === "Svago"
   );
-  const filteredGeneralTasks = tasks?.filter(
+  const filteredGeneralTasks = tasksOfTheDay?.filter(
     (task) => task.category.title === "Altro"
   );
   return (
@@ -77,7 +81,7 @@ export default function HomePage() {
         <h3 className="text-center fw-semibold">Le tue attività del giorno </h3>
         <div className="row mt-4">
           {/* TASKS */}
-          {tasks.map((task) => (
+          {tasksOfTheDay.map((task) => (
             <div key={task.id} className="col-3">
               <div className={`card task-card ${task.category.color}`}>
                 <div className="card-body">
@@ -104,7 +108,7 @@ export default function HomePage() {
               </div>
             </div>
           ))}
-          {tasks.length === 0 && (
+          {tasksOfTheDay.length === 0 && (
             <div className="alert alert-info" role="alert">
               Non hai attività da visualizzare.
             </div>
@@ -112,17 +116,23 @@ export default function HomePage() {
         </div>
         <h3 className="text-center fw-semibold ">Note del giorno </h3>
         <div className="row mt-4">
-          {notes?.map((note) => (
-            <div className="col-3" key={note.id}>
-              <div className=" notes-card card yellow">
-                <div className="card-body">
-                  <p>{note.date}</p>
-                  <h5 className="fw-semibold card-title">{note.title}</h5>
-                  <p className="card-text">{note.description}</p>
+          {notesOfTheDay.length > 0 ? (
+            notesOfTheDay?.map((note) => (
+              <div className="col-3" key={note.id}>
+                <div className=" notes-card card yellow">
+                  <div className="card-body">
+                    <p>{note.date}</p>
+                    <h5 className="fw-semibold card-title">{note.title}</h5>
+                    <p className="card-text">{note.description}</p>
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="alert alert-info" role="alert">
+              Non hai note da visualizzare.
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
