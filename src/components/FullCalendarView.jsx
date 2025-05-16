@@ -13,8 +13,8 @@ export default function FullCalendarView({ tasks }) {
   );
 
   return (
-    <div className="container my-4">
-      <h2>Calendario attività</h2>
+    <div>
+      <h2 className="text-center my-3">Calendario attività</h2>
 
       <Calendar
         onChange={setSelectedDate}

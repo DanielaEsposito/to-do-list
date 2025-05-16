@@ -11,6 +11,19 @@ export default function Tasks() {
   const [date, setDate] = useState("");
   const [completed, setCompleted] = useState(false);
 
+  const filteredWorkTasks = tasks?.filter(
+    (task) => task.category.title === "Lavoro"
+  );
+  const filteredHealthTasks = tasks?.filter(
+    (task) => task.category.title === "Salute e Benessere"
+  );
+  const filteredPersonalTasks = tasks?.filter(
+    (task) => task.category.title === "Svago"
+  );
+  const filteredGeneralTasks = tasks?.filter(
+    (task) => task.category.title === "Altro"
+  );
+
   // Fetch tasks from the API and filter by category and priority
   useEffect(() => {
     const queryParams = new URLSearchParams();
@@ -127,7 +140,42 @@ export default function Tasks() {
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
-        <div className="col-3"></div>
+        <div className="col-3 text-center p-3">
+          <div className="category-container orange">
+            <h4>
+              <i class="fa-solid fa-briefcase"></i>
+            </h4>
+            <p className="fw-semibold">Lavoro</p>
+            <h4>{filteredWorkTasks?.length || 0}</h4>
+          </div>
+        </div>
+        <div className="col-3 text-center p-3">
+          <div className="category-container yellow">
+            <h4>
+              <i class="fa-solid fa-masks-theater"></i>
+            </h4>
+            <p className="fw-semibold">Svago</p>
+            <h4>{filteredPersonalTasks?.length || 0}</h4>
+          </div>
+        </div>
+        <div className="col-3 text-center p-3">
+          <div className="category-container mint">
+            <h4>
+              <i class="fa-solid fa-suitcase-medical"></i>
+            </h4>
+            <p className="fw-semibold">Salute e Benessere</p>
+            <h4>{filteredHealthTasks?.length || 0}</h4>
+          </div>
+        </div>
+        <div className="col-3 text-center p-3">
+          <div className="category-container light-blu">
+            <h4>
+              <i class="fa-solid fa-puzzle-piece"></i>
+            </h4>
+            <p className="fw-semibold">Altro</p>
+            <h4>{filteredGeneralTasks?.length || 0}</h4>
+          </div>
+        </div>
       </div>
       <div className="row">
         {/* TASKS */}
