@@ -27,7 +27,7 @@ export default function HomePage() {
             <div className="home-welcome d-flex justify-content-between">
               <div className="text">
                 <h2 className="fw-semibold">Benvenuto nella tua dashboard</h2>
-                <h3>Prova</h3>
+                prova 2
                 <p>Qui puoi gestire le tue attività e rimanere organizzato.</p>
               </div>
             </div>
